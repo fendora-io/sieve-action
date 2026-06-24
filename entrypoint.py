@@ -36,7 +36,7 @@ def call_sieve(semgrep_output: dict, repo: str) -> dict:
 
 
 def post_pr_comment(result: dict, scan_id: str) -> None:
-    token = os.environ.get("INPUT_GITHUB-TOKEN") or os.environ.get("GITHUB_TOKEN", "")
+    token = os.environ.get("INPUT_GITHUB_TOKEN") or os.environ.get("GITHUB_TOKEN", "")
     event_path = os.environ.get("GITHUB_EVENT_PATH", "")
     if not token or not event_path:
         return
