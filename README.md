@@ -27,7 +27,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: fendora-io/sieve-action@v1
+      - uses: fendora-io/sieve-action@v1.1.0
 ```
 
 That's it — no setup, no API keys, no configuration required.
@@ -77,7 +77,7 @@ No likely vulnerabilities found.
 ## Don't fail the build
 
 ```yaml
-- uses: fendora-io/sieve-action@v1
+- uses: fendora-io/sieve-action@v1.1.0
   with:
     fail-on-findings: "false"
 ```
