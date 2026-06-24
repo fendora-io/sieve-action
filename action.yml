@@ -15,6 +15,10 @@ inputs:
     description: Exit with code 1 if real vulnerabilities are found
     required: false
     default: "true"
+  github-token:
+    description: GitHub token for posting PR comments
+    required: false
+    default: ${{ github.token }}
 
 outputs:
   total:
