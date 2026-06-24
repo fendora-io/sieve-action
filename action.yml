@@ -1,5 +1,5 @@
 name: Sieve Security Scan
-description: AI-powered vulnerability scanner that finds real security issues and suppresses false positives.
+description: AI-powered security scanner that finds real security issues and suppresses false positives.
 author: Fendora UG (haftungsbeschränkt)
 
 branding:
@@ -7,12 +7,6 @@ branding:
   color: yellow
 
 inputs:
-  api-key:
-    description: Sieve API key (store as a repo secret)
-    required: true
-  api-url:
-    description: Sieve API base URL
-    required: true
   repo-alias:
     description: Short name for this repo in scan results (defaults to repo name)
     required: false
@@ -52,23 +46,22 @@ runs:
       shell: bash
       id: sieve
       env:
-        SIEVE_API_KEY: ${{ inputs.api-key }}
-        SIEVE_API_URL: ${{ inputs.api-url }}
         REPO_ALIAS: ${{ inputs.repo-alias || github.repository }}
       run: |
         python3 << 'EOF'
         import json, os, sys, uuid, urllib.request, urllib.error
 
         semgrep = json.load(open("/tmp/sieve-raw.json"))
-        api_url = os.environ["SIEVE_API_URL"].rstrip("/")
-        api_key = os.environ["SIEVE_API_KEY"]
         alias   = os.environ["REPO_ALIAS"]
 
         payload = json.dumps({"semgrep_output": semgrep, "repo": alias}).encode()
         req = urllib.request.Request(
-            f"{api_url}/scan",
+            "https://sieve.devberlin.de/scan",
             data=payload,
-            headers={"Content-Type": "application/json", "X-API-Key": api_key},
+            headers={
+                "Content-Type": "application/json",
+                "X-API-Key": "sieve-action-v1-dvE8NO1JN4YPclMhCE9TvRV75FJ3zYxz",
+            },
             method="POST",
         )
         try:
