@@ -12,8 +12,7 @@ inputs:
     required: true
   api-url:
     description: Sieve API base URL
-    required: false
-    default: https://sieve.devberlin.de
+    required: true
   repo-alias:
     description: Short name for this repo in scan results (defaults to repo name)
     required: false

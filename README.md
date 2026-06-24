@@ -30,12 +30,13 @@ jobs:
       - uses: fendora-io/sieve-action@v1
         with:
           api-key: ${{ secrets.SIEVE_API_KEY }}
+          api-url: ${{ secrets.SIEVE_API_URL }}
 ```
 
 ## Setup
 
-1. [Request an API key](mailto:hello@fendora.io)
-2. Add `SIEVE_API_KEY` to your repository secrets (**Settings → Secrets → Actions**)
+1. [Request access](mailto:contact@fendora.io) — we'll send you an API key and endpoint URL
+2. Add `SIEVE_API_KEY` and `SIEVE_API_URL` to your repository secrets (**Settings → Secrets → Actions**)
 3. Add the workflow above to `.github/workflows/sieve.yml`
 
 That's it. Sieve will comment on every pull request with its findings.
@@ -45,7 +46,7 @@ That's it. Sieve will comment on every pull request with its findings.
 | Input | Required | Default | Description |
 |-------|----------|---------|-------------|
 | `api-key` | ✅ | — | Your Sieve API key |
-| `api-url` | | `https://sieve.devberlin.de` | Sieve API endpoint |
+| `api-url` | ✅ | — | Sieve API endpoint (provided when you get your API key) |
 | `repo-alias` | | repo name | Short name used in scan results |
 | `fail-on-findings` | | `true` | Fail the check if real vulnerabilities are found |
 
@@ -92,6 +93,7 @@ If you want Sieve to comment but not block merges:
 - uses: fendora-io/sieve-action@v1
   with:
     api-key: ${{ secrets.SIEVE_API_KEY }}
+    api-url: ${{ secrets.SIEVE_API_URL }}
     fail-on-findings: "false"
 ```
 

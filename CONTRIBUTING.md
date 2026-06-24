@@ -21,4 +21,4 @@ Changes to `action.yml` inputs or outputs are breaking changes for existing user
 
 ## Contact
 
-For questions: **hello@fendora.io**
+For questions: **contact@fendora.io**
