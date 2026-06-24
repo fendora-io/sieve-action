@@ -38,16 +38,25 @@ def call_sieve(semgrep_output: dict, repo: str) -> dict:
 def post_pr_comment(result: dict, scan_id: str) -> None:
     token = os.environ.get("INPUT_GITHUB_TOKEN") or os.environ.get("GITHUB_TOKEN", "")
     event_path = os.environ.get("GITHUB_EVENT_PATH", "")
-    if not token or not event_path:
+    if not token:
+        print("::warning::GITHUB_TOKEN not available — skipping PR comment")
+        return
+    if not event_path:
+        print("::warning::GITHUB_EVENT_PATH not set — skipping PR comment")
         return
 
     try:
         event = json.load(open(event_path))
         pr_number = event.get("pull_request", {}).get("number")
         repo = os.environ.get("GITHUB_REPOSITORY", "")
-        if not pr_number or not repo:
+        if not pr_number:
+            print("::warning::Not a pull_request event — skipping PR comment")
             return
-    except Exception:
+        if not repo:
+            print("::warning::GITHUB_REPOSITORY not set — skipping PR comment")
+            return
+    except Exception as e:
+        print(f"::warning::Failed to read event file: {e}")
         return
 
     total    = result["total"]
@@ -90,9 +99,11 @@ def post_pr_comment(result: dict, scan_id: str) -> None:
     existing = next((c for c in comments if isinstance(c, dict) and marker in c.get("body", "")), None)
 
     if existing:
-        requests.patch(f"{api_base}/issues/comments/{existing['id']}", headers=headers, json={"body": full_body})
+        r = requests.patch(f"{api_base}/issues/comments/{existing['id']}", headers=headers, json={"body": full_body})
     else:
-        requests.post(f"{api_base}/issues/{pr_number}/comments", headers=headers, json={"body": full_body})
+        r = requests.post(f"{api_base}/issues/{pr_number}/comments", headers=headers, json={"body": full_body})
+    if r.status_code not in (200, 201):
+        print(f"::warning::Failed to post PR comment: {r.status_code} {r.text[:200]}")
 
 
 def write_outputs(result: dict, scan_id: str) -> None:
