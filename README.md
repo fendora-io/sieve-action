@@ -28,25 +28,14 @@ jobs:
           fetch-depth: 0
 
       - uses: fendora-io/sieve-action@v1
-        with:
-          api-key: ${{ secrets.SIEVE_API_KEY }}
-          api-url: ${{ secrets.SIEVE_API_URL }}
 ```
 
-## Setup
-
-1. [Request access](mailto:contact@fendora.io) — we'll send you an API key and endpoint URL
-2. Add `SIEVE_API_KEY` and `SIEVE_API_URL` to your repository secrets (**Settings → Secrets → Actions**)
-3. Add the workflow above to `.github/workflows/sieve.yml`
-
-That's it. Sieve will comment on every pull request with its findings.
+That's it — no setup, no API keys, no configuration required.
 
 ## Inputs
 
 | Input | Required | Default | Description |
 |-------|----------|---------|-------------|
-| `api-key` | ✅ | — | Your Sieve API key |
-| `api-url` | ✅ | — | Sieve API endpoint (provided when you get your API key) |
 | `repo-alias` | | repo name | Short name used in scan results |
 | `fail-on-findings` | | `true` | Fail the check if real vulnerabilities are found |
 
@@ -87,15 +76,28 @@ No likely vulnerabilities found.
 
 ## Don't fail the build
 
-If you want Sieve to comment but not block merges:
-
 ```yaml
 - uses: fendora-io/sieve-action@v1
   with:
-    api-key: ${{ secrets.SIEVE_API_KEY }}
-    api-url: ${{ secrets.SIEVE_API_URL }}
     fail-on-findings: "false"
 ```
+
+## Data & Privacy
+
+When you use this action, the following is sent to Sieve servers for analysis:
+
+- File paths, line numbers, rule IDs, and matched code snippets from security findings
+- Your repo alias (defaults to the GitHub repo name)
+
+**What is never stored:** full source files, raw file paths, or raw code snippets.
+
+**What may be stored server-side** (anonymized, for model improvement): rule IDs, SHA-256 hashed file paths, confidence scores, and predicted labels — no code.
+
+For questions about data handling: **contact@fendora.io**
+
+## Contact
+
+Questions or feedback: **contact@fendora.io**
 
 ## License
 
