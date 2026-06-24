@@ -36,7 +36,7 @@ def call_sieve(semgrep_output: dict, repo: str) -> dict:
 
 
 def post_pr_comment(result: dict, scan_id: str) -> None:
-    token = os.environ.get("INPUT_GITHUB_TOKEN") or os.environ.get("GITHUB_TOKEN", "")
+    token = (sys.argv[1] if len(sys.argv) > 1 else "") or os.environ.get("INPUT_GITHUB-TOKEN", "") or os.environ.get("GITHUB_TOKEN", "")
     event_path = os.environ.get("GITHUB_EVENT_PATH", "")
     if not token:
         print("::warning::GITHUB_TOKEN not available — skipping PR comment")
