@@ -7,7 +7,7 @@ import uuid
 
 import requests
 
-SIEVE_URL = "https://sieve.devberlin.de/scan"
+SIEVE_URL = "https://sieve.fendora.io/scan"
 API_KEY   = "sieve-action-v1-dvE8NO1JN4YPclMhCE9TvRV75FJ3zYxz"
 
 
