@@ -3,6 +3,8 @@ name: Sieve Security Scan
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  issue_comment:
+    types: [created]
 
 permissions:
   contents: read
