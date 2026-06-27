@@ -1,0 +1,21 @@
+name: Sieve Security Scan
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  sieve-scan:
+    name: Sieve PR scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: fendora-io/sieve-action@v1.2.0
+        with:
+          repo-alias: fendora-io/sieve-action
+          fail-on-findings: "false"
