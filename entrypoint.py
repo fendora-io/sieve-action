@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
+import hashlib
 import json
 import os
 import subprocess
 import sys
+import urllib.parse
 import uuid
 
 import requests
@@ -67,8 +69,17 @@ def post_pr_comment(result: dict, scan_id: str) -> None:
 
     marker = "<!-- sieve-scan -->"
     if real:
+        def _feedback_links(f: dict) -> str:
+            base = (
+                f"https://sieve.fendora.io/feedback"
+                f"?scan_id={scan_id}"
+                f"&rule_id={urllib.parse.quote(f['check_id'], safe='')}"
+                f"&file_hash={hashlib.sha256(f['file'].encode()).hexdigest()}"
+            )
+            return f"[👍]({base}&label=1) [👎]({base}&label=0)"
+
         rows = "\n".join(
-            f"| `{f['check_id'].split('.')[-1]}` | `{f['file']}` | {f['line_start']} | {f['confidence_score']:.2f} |"
+            f"| `{f['check_id'].split('.')[-1]}` | `{f['file']}` | {f['line_start']} | {f['confidence_score']:.2f} | {_feedback_links(f)} |"
             for f in sorted(real, key=lambda x: x["confidence_score"], reverse=True)
         )
         body = "\n".join([
@@ -76,8 +87,8 @@ def post_pr_comment(result: dict, scan_id: str) -> None:
             "",
             f"**{len(real)} finding(s) flagged as likely real** — the rest were suppressed as false positives.",
             "",
-            "| Rule | File | Line | Score |",
-            "|------|------|------|-------|",
+            "| Rule | File | Line | Score | Feedback |",
+            "|------|------|------|-------|----------|",
             rows,
             "",
             f"_{flagged} real · {suppressed} suppressed · {total} total_",
