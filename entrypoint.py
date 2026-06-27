@@ -9,11 +9,11 @@ import uuid
 
 import requests
 
-SIEVE_URL     = "https://sieve.fendora.io/scan"
-FEEDBACK_URL  = "https://sieve.fendora.io/feedback"
-API_KEY       = "sieve-action-v1-dvE8NO1JN4YPclMhCE9TvRV75FJ3zYxz"
-SCAN_MARKER   = "<!-- sieve-scan -->"
-DATA_MARKER   = "sieve-findings"
+SIEVE_URL            = "https://sieve.fendora.io/scan"
+REGISTER_URL         = "https://sieve.fendora.io/register-reactions"
+API_KEY              = "sieve-action-v1-dvE8NO1JN4YPclMhCE9TvRV75FJ3zYxz"
+SCAN_MARKER          = "<!-- sieve-scan -->"
+DATA_MARKER          = "sieve-findings"
 
 
 def run_semgrep() -> dict:
@@ -77,6 +77,8 @@ def post_pr_comment(result: dict, scan_id: str) -> None:
     findings   = result["findings"]
     real       = sorted([f for f in findings if f["predicted_label"] == 1], key=lambda x: x["confidence_score"], reverse=True)
     suppressed = total - flagged
+    api_base   = f"https://api.github.com/repos/{repo}"
+    headers    = _gh_headers(token)
 
     if real:
         rows = "\n".join(
@@ -109,7 +111,7 @@ def post_pr_comment(result: dict, scan_id: str) -> None:
             f"_{flagged} real · {suppressed} suppressed · {total} total_",
             f"_scan\\_id: `{scan_id}`_",
             "",
-            "💬 Reply `/sieve real` or `/sieve fp [rule]` to label findings.",
+            "👍/👎 React on each finding below to label it.",
             "",
             "<sub>Powered by [Sieve](https://github.com/fendora-io/sieve-action) · AI security scanner by [Fendora](https://fendora.io)</sub>",
         ])
@@ -120,8 +122,6 @@ def post_pr_comment(result: dict, scan_id: str) -> None:
         )
 
     full_body = f"{SCAN_MARKER}\n{body}"
-    api_base  = f"https://api.github.com/repos/{repo}"
-    headers   = _gh_headers(token)
 
     comments = requests.get(f"{api_base}/issues/{pr_number}/comments", headers=headers).json()
     existing = next((c for c in comments if isinstance(c, dict) and SCAN_MARKER in c.get("body", "")), None)
@@ -132,6 +132,39 @@ def post_pr_comment(result: dict, scan_id: str) -> None:
         r = requests.post(f"{api_base}/issues/{pr_number}/comments", headers=headers, json={"body": full_body})
     if r.status_code not in (200, 201):
         print(f"::warning::Failed to post PR comment: {r.status_code} {r.text[:200]}")
+        return
+
+    if real:
+        _post_reaction_comments(real, scan_id, repo, pr_number, token, headers, api_base)
+
+
+def _post_reaction_comments(real: list, scan_id: str, repo: str, pr_number: int, token: str, headers: dict, api_base: str) -> None:
+    registered = []
+    for f in real:
+        short = f["check_id"].split(".")[-1]
+        body = (
+            f"🔍 **`{short}`** · `{f['file']}:{f['line_start']}` · score {f['confidence_score']:.2f}\n\n"
+            f"React 👍 if this is a **real vulnerability** · 👎 if it's a **false positive**"
+        )
+        r = requests.post(f"{api_base}/issues/{pr_number}/comments", headers=headers, json={"body": body})
+        if r.status_code == 201:
+            registered.append({
+                "comment_id": r.json()["id"],
+                "rule_id": f["check_id"],
+                "file_hash": hashlib.sha256(f["file"].encode()).hexdigest(),
+                "scan_id": scan_id,
+            })
+
+    if registered:
+        try:
+            requests.post(
+                REGISTER_URL,
+                json={"repo": repo, "pr_number": pr_number, "findings": registered},
+                headers={"Content-Type": "application/json", "X-API-Key": API_KEY},
+                timeout=30,
+            )
+        except Exception as e:
+            print(f"::warning::Failed to register reactions: {e}")
 
 
 def handle_issue_comment() -> None:
@@ -185,7 +218,7 @@ def handle_issue_comment() -> None:
         return
 
     for f in matched:
-        requests.get(FEEDBACK_URL, params={
+        requests.get("https://sieve.fendora.io/feedback", params={
             "scan_id":   scan_id,
             "rule_id":   f["rule_id"],
             "file_hash": f["file_hash"],
