@@ -24,10 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - uses: fendora-io/sieve-action@v1.1.0
+      - uses: fendora-io/sieve-action@v1.2.0
 ```
 
 That's it — no setup, no API keys, no configuration required.
@@ -38,6 +36,7 @@ That's it — no setup, no API keys, no configuration required.
 |-------|----------|---------|-------------|
 | `repo-alias` | | repo name | Short name used in scan results |
 | `fail-on-findings` | | `true` | Fail the check if real vulnerabilities are found |
+| `github-token` | | `github.token` | Token used to post PR comments |
 
 ## Outputs
 
@@ -56,13 +55,15 @@ When Sieve finds issues it posts a comment on the PR:
 
 2 finding(s) flagged as likely real — the rest were suppressed as false positives.
 
-| Rule                  | File               | Line | Score |
-|-----------------------|--------------------|------|-------|
-| `sql-injection`       | `src/db/query.js`  | 42   | 0.94  |
-| `subprocess-shell`    | `scripts/build.py` | 18   | 0.81  |
+| Rule               | File               | Line | Score | Feedback |
+|--------------------|--------------------|------|-------|----------|
+| `sql-injection`    | `src/db/query.js`  | 42   | 0.94  | 👍 👎    |
+| `subprocess-shell` | `scripts/build.py` | 18   | 0.81  | 👍 👎    |
 
 2 real · 14 suppressed · 16 total
 ```
+
+The 👍 / 👎 links let you mark each finding as a real vulnerability or a false positive. Your feedback is stored anonymously and used to improve the model over time.
 
 When no issues are found:
 
@@ -77,7 +78,7 @@ No likely vulnerabilities found.
 ## Don't fail the build
 
 ```yaml
-- uses: fendora-io/sieve-action@v1.1.0
+- uses: fendora-io/sieve-action@v1.2.0
   with:
     fail-on-findings: "false"
 ```
@@ -91,7 +92,7 @@ When you use this action, the following is sent to Sieve servers for analysis:
 
 **What is never stored:** full source files, raw file paths, or raw code snippets.
 
-**What may be stored server-side** (anonymized, for model improvement): rule IDs, SHA-256 hashed file paths, confidence scores, and predicted labels — no code.
+**What may be stored server-side** (anonymized, for model improvement): rule IDs, SHA-256 hashed file paths, confidence scores, predicted labels, and any feedback you submit via the 👍/👎 links — no code.
 
 For questions about data handling: **contact@fendora.io**
 
