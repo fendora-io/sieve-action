@@ -1,0 +1,41 @@
+name: False Positive / False Negative Report
+description: Sieve flagged something it shouldn't have, or missed a real vulnerability
+labels: ["model-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve the model. The more detail you provide, the better we can tune it.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - "False positive — Sieve flagged something that isn't a vulnerability"
+        - "False negative — Sieve missed a real vulnerability"
+    validations:
+      required: true
+
+  - type: input
+    id: rule
+    attributes:
+      label: Rule ID
+      description: The rule that was flagged (shown in the PR comment).
+      placeholder: "e.g. python.lang.security.audit.subprocess-shell-true"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Describe the code pattern and why it is or isn't a real vulnerability. Do not paste actual secrets or sensitive code.
+    validations:
+      required: true
+
+  - type: input
+    id: score
+    attributes:
+      label: Confidence score shown
+      placeholder: "e.g. 0.87"
