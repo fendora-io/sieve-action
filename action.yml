@@ -4,7 +4,7 @@ author: Fendora UG (haftungsbeschränkt)
 
 branding:
   icon: shield
-  color: yellow
+  color: blue
 
 inputs:
   repo-alias:
