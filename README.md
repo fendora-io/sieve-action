@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/sieve-banner-965x482.jpg" alt="Sieve by Fendora — AI-Powered Security Scanning" width="965" />
+</p>
+
 # Sieve Security Scan · GitHub Action
 
 **AI-powered security scanner for pull requests.** Sieve finds real vulnerabilities and suppresses false positives — so your team focuses on issues that actually matter.
