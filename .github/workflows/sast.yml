@@ -1,4 +1,4 @@
-name: CI
+name: SAST
 
 on:
   push:
@@ -9,11 +9,12 @@ permissions:
   contents: read
 
 jobs:
-  lint:
-    name: Validate action.yml
+  semgrep:
+    name: Semgrep scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - name: Check action.yml is valid YAML
-        run: python3 -c "import yaml, sys; yaml.safe_load(open('action.yml'))" && echo "action.yml is valid"
+      - uses: semgrep/semgrep-action@713efdd345f3035192eaa63f56867b88e63e4e5d # v1
+        with:
+          config: p/owasp-top-ten
