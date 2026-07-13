@@ -35,6 +35,22 @@ jobs:
             type=ref,event=tag
             type=raw,value=latest,enable={{is_default_branch}}
 
+      - name: Validate image metadata
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          if [[ "${REF_NAME}" != "main" && ! "${REF_NAME}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid ref name: ${REF_NAME}" >&2
+            exit 1
+          fi
+          for tag in ${TAGS}; do
+            case "${tag}" in
+              ghcr.io/fendora-io/sieve-action:latest|ghcr.io/fendora-io/sieve-action:v[0-9]*.[0-9]*.[0-9]*) ;;
+              *) echo "Invalid image tag: ${tag}" >&2; exit 1 ;;
+            esac
+          done
+
       - name: Build and push
         id: build
         uses: docker/build-push-action@ca052bb54ab0790a636c9b5f226502c73d547a25 # v5
@@ -65,6 +81,32 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Validate release metadata
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          DIGEST: ${{ needs.build.outputs.digest }}
+          TAGS: ${{ needs.build.outputs.tags }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          if [[ ! "${REF_NAME}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid release tag: ${REF_NAME}" >&2
+            exit 1
+          fi
+          if [[ "${REPOSITORY}" != "fendora-io/sieve-action" ]]; then
+            echo "Invalid repository: ${REPOSITORY}" >&2
+            exit 1
+          fi
+          if [[ ! "${DIGEST}" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+            echo "Invalid digest: ${DIGEST}" >&2
+            exit 1
+          fi
+          for tag in ${TAGS}; do
+            case "${tag}" in
+              ghcr.io/fendora-io/sieve-action:v[0-9]*.[0-9]*.[0-9]*) ;;
+              *) echo "Invalid image tag: ${tag}" >&2; exit 1 ;;
+            esac
+          done
+
       - name: Sign container image
         env:
           DIGEST: ${{ needs.build.outputs.digest }}
@@ -78,7 +120,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DIGEST: ${{ needs.build.outputs.digest }}
+          RELEASE_TAG: ${{ github.ref_name }}
         run: |
+          if [[ ! "${RELEASE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid release tag: ${RELEASE_TAG}" >&2
+            exit 1
+          fi
           echo "${DIGEST}" > image-digest.txt
           cosign sign-blob --yes image-digest.txt --bundle image-digest.sigstore.json
-          gh release upload "${GITHUB_REF_NAME}" image-digest.sigstore.json --clobber --repo "${GITHUB_REPOSITORY}"
+          gh release upload "${RELEASE_TAG}" image-digest.sigstore.json --clobber --repo "fendora-io/sieve-action"
