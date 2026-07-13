@@ -100,12 +100,22 @@ jobs:
             echo "Invalid digest: ${DIGEST}" >&2
             exit 1
           fi
+          RELEASE_TAGS=""
           for tag in ${TAGS}; do
             case "${tag}" in
-              ghcr.io/fendora-io/sieve-action:v[0-9]*.[0-9]*.[0-9]*) ;;
+              ghcr.io/fendora-io/sieve-action:v[0-9]*.[0-9]*.[0-9]*)
+                RELEASE_TAGS="${RELEASE_TAGS} ${tag}"
+                ;;
+              ghcr.io/fendora-io/sieve-action:latest)
+                # Tag pushes may include "latest" in metadata output; never sign/publish it as a release artifact.
+                ;;
               *) echo "Invalid image tag: ${tag}" >&2; exit 1 ;;
             esac
           done
+          if [[ -z "${RELEASE_TAGS// /}" ]]; then
+            echo "No release image tags found in TAGS output" >&2
+            exit 1
+          fi
 
       - name: Sign container image
         env:
@@ -113,6 +123,11 @@ jobs:
           TAGS: ${{ needs.build.outputs.tags }}
         run: |
           for tag in ${TAGS}; do
+            case "${tag}" in
+              ghcr.io/fendora-io/sieve-action:v[0-9]*.[0-9]*.[0-9]*) ;;
+              ghcr.io/fendora-io/sieve-action:latest) continue ;;
+              *) continue ;;
+            esac
             cosign sign --yes "${tag}@${DIGEST}"
           done
 
