@@ -141,6 +141,9 @@ jobs:
             echo "Invalid release tag: ${RELEASE_TAG}" >&2
             exit 1
           fi
+          if ! gh release view "${RELEASE_TAG}" --repo "fendora-io/sieve-action" >/dev/null 2>&1; then
+            gh release create "${RELEASE_TAG}" --repo "fendora-io/sieve-action" --title "${RELEASE_TAG}" --generate-notes
+          fi
           echo "${DIGEST}" > image-digest.txt
           cosign sign-blob --yes image-digest.txt --bundle image-digest.sigstore.json
           gh release upload "${RELEASE_TAG}" image-digest.sigstore.json --clobber --repo "fendora-io/sieve-action"
