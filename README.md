@@ -2,17 +2,14 @@
   <img src="assets/sieve-banner-965x482.jpg" alt="Sieve by Fendora — AI-Powered Security Scanning" width="965" />
 </p>
 
-# Sieve Security Scan · GitHub Action
+# Sieve by Fendora
 
-**AI-powered security scanner for pull requests.** Sieve finds real vulnerabilities and suppresses false positives — so your team focuses on issues that actually matter.
+**GitHub Action · AI-powered security scanning for pull requests.** Sieve finds real vulnerabilities and suppresses false positives — so your team focuses on issues that actually matter.
 
 > Built by [Fendora UG (haftungsbeschränkt)](https://fendora.io)
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/fendora-io/sieve-action/badge)](https://securityscorecards.dev/viewer/?uri=github.com/fendora-io/sieve-action)
-
-<!-- OpenSSF Best Practices badge: register at https://www.bestpractices.dev then replace PROJECT_ID:
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/PROJECT_ID/badge)](https://www.bestpractices.dev/projects/PROJECT_ID)
--->
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13597/badge)](https://www.bestpractices.dev/en/projects/13597)
 
 ---
 
