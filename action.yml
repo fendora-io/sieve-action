@@ -30,6 +30,6 @@ outputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/fendora-io/sieve-action:v1.4.3
+  image: docker://ghcr.io/fendora-io/sieve-action:v1.4.4
   args:
     - ${{ inputs.github-token }}

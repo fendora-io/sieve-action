@@ -34,7 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: fendora-io/sieve-action@v1.4.3
+      - uses: fendora-io/sieve-action@v1.4.4
 ```
 
 That's it — no setup, no API keys, no configuration required.
@@ -87,7 +87,7 @@ No likely vulnerabilities found.
 ## Don't fail the build
 
 ```yaml
-- uses: fendora-io/sieve-action@v1.4.3
+- uses: fendora-io/sieve-action@v1.4.4
   with:
     fail-on-findings: "false"
 ```

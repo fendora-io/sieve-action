@@ -14,7 +14,7 @@ Each official release (`v*`) includes:
 | Digest attestation | `image-digest.sigstore.json` | [GitHub Release assets](https://github.com/fendora-io/sieve-action/releases) |
 | SBOM | `sbom.spdx.json` | GitHub Release assets |
 
-All container images are tagged with the semver release identifier (e.g. `v1.4.3`).
+All container images are tagged with the semver release identifier (e.g. `v1.4.4`).
 
 ## Verify image integrity and authenticity
 
@@ -27,7 +27,7 @@ brew install cosign   # macOS
 ### 2. Verify the container image signature
 
 ```bash
-cosign verify ghcr.io/fendora-io/sieve-action:v1.4.3 \
+cosign verify ghcr.io/fendora-io/sieve-action:v1.4.4 \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
   --certificate-identity-regexp '^https://github\.com/fendora-io/sieve-action/\.github/workflows/.*'
 ```
