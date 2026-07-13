@@ -6,7 +6,7 @@ Known dependency vulnerabilities assessed as **not exploitable** in `fendora-io/
 
 | CVE / GHSA | Component | Status | Justification | Last reviewed |
 |------------|-----------|--------|---------------|---------------|
-| _none_ | — | — | No suppressions at this time | 2026-07-13 |
+| PYSEC-2026-2132 | click 8.1.8 (transitive via semgrep) | Not affected | `click.edit()` is not invoked by sieve-action or entrypoint.py; vulnerability requires attacker to control arguments to that API | 2026-07-13 |
 
 ## Process
 

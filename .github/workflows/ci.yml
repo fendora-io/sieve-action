@@ -39,4 +39,5 @@ jobs:
       - name: Audit Python dependencies
         run: |
           pip install pip-audit
-          pip-audit -r requirements.txt --require-hashes --desc on
+          pip-audit -r requirements.txt --require-hashes --desc on \
+            --ignore-vuln PYSEC-2026-2132
