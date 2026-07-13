@@ -14,7 +14,6 @@ Sensitive resources for this project include: the `fendora-io/sieve-action` repo
 The [@fendora-io/legends](https://github.com/orgs/fendora-io/teams/legends) team reviews and approves pull requests before merge. Current members:
 
 - [@mohijalili](https://github.com/mohijalili)
-- [@djalili](https://github.com/djalili)
 - [@malivix](https://github.com/malivix)
 - [@RezDev94](https://github.com/RezDev94)
 - [@1mohammad](https://github.com/1mohammad)
