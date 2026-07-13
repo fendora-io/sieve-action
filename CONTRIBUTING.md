@@ -5,10 +5,27 @@ Thanks for your interest in improving Sieve.
 ## How to contribute
 
 1. Fork the repo and create a branch from `main`
-2. Open a pull request — all changes require at least one approving review before merge
-3. Ensure CI passes (`Validate action.yml`, `Analyze`, `Semgrep scan`)
+2. Sign every commit (`git commit -s`) per the [Developer Certificate of Origin](#developer-certificate-of-origin-dco) below
+3. Open a pull request — all changes require at least one approving review from [@fendora-io/legends](https://github.com/orgs/fendora-io/teams/legends) before merge
+4. Ensure CI passes (`Validate action.yml`, `Run tests`, `DCO`, `Analyze`, `Semgrep scan`)
 
 We use GitHub pull requests and issues for all contributions.
+
+## Developer Certificate of Origin (DCO)
+
+By contributing, you certify that you have the right to submit your contribution under the project's [Apache 2.0 license](LICENSE), per the [Developer Certificate of Origin](https://developercertificate.org/).
+
+Every commit must include a `Signed-off-by` line:
+
+```bash
+git commit -s -m "Describe your change"
+```
+
+The DCO check runs on all pull requests.
+
+## Development
+
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for dependency management, build instructions, and running tests locally.
 
 ## Reporting issues
 
