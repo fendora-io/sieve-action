@@ -131,7 +131,7 @@ jobs:
           gh release upload "${RELEASE_TAG}" image-digest.sigstore.json --clobber --repo "fendora-io/sieve-action"
 
       - name: Generate SBOM
-        uses: anchore/sbom-action@254675d3ea9538ce36d829f5aeea1fe078b2990 # v0.20.0
+        uses: anchore/sbom-action@e11c554f704a0b820cbf8c51673f6945e0731532 # v0.20.0
         with:
           image: ghcr.io/fendora-io/sieve-action@${{ needs.build.outputs.digest }}
           output-file: sbom.spdx.json
