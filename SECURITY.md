@@ -4,6 +4,8 @@
 
 | Version | Supported |
 |---------|-----------|
+| v1.4.2  | ✅        |
+| v1.4.1  | ✅        |
 | latest  | ✅        |
 
 ## Reporting a Vulnerability
