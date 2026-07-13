@@ -39,4 +39,4 @@ jobs:
       - name: Audit Python dependencies
         run: |
           pip install pip-audit
-          pip-audit -r requirements.txt --desc on --fail-on high
+          pip-audit -r requirements.txt --require-hashes --desc on
