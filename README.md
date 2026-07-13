@@ -8,6 +8,12 @@
 
 > Built by [Fendora UG (haftungsbeschränkt)](https://fendora.io)
 
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/fendora-io/sieve-action/badge)](https://securityscorecards.dev/viewer/?uri=github.com/fendora-io/sieve-action)
+
+<!-- OpenSSF Best Practices badge: register at https://www.bestpractices.dev then replace PROJECT_ID:
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/PROJECT_ID/badge)](https://www.bestpractices.dev/projects/PROJECT_ID)
+-->
+
 ---
 
 ## Usage
@@ -101,6 +107,10 @@ When you use this action, the following is sent to Sieve servers for analysis:
 **What may be stored server-side** (anonymized, for model improvement): rule IDs, SHA-256 hashed file paths, confidence scores, predicted labels, and any feedback you submit via the 👍/👎 links — no code.
 
 For questions about data handling: **contact@fendora.io**
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Report security issues via [SECURITY.md](SECURITY.md).
 
 ## Contact
 
