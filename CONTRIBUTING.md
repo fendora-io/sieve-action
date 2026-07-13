@@ -7,7 +7,7 @@ Thanks for your interest in improving Sieve.
 1. Fork the repo and create a branch from `main`
 2. Sign every commit (`git commit -s`) per the [Developer Certificate of Origin](#developer-certificate-of-origin-dco) below
 3. Open a pull request — all changes require at least one approving review from [@fendora-io/legends](https://github.com/orgs/fendora-io/teams/legends) before merge
-4. Ensure CI passes (`Validate action.yml`, `Run tests`, `DCO`, `Analyze`, `Semgrep scan`)
+4. Ensure CI passes (`Validate action.yml`, `Run tests`, `pip-audit`, `DCO`, `Analyze`, `Semgrep scan`)
 
 We use GitHub pull requests and issues for all contributions.
 
@@ -43,6 +43,13 @@ Please **do not** report security vulnerabilities in public issues. See [SECURIT
 1. Test your change against a real repository when possible
 2. Describe what changed and why in the PR description
 3. Keep changes focused — avoid unrelated refactors
+4. **Do not approve your own PR** — a different Legends member must approve
+
+## Testing policy
+
+- All PRs must pass CI, including unit tests, DCO, Semgrep, CodeQL, and `pip-audit`.
+- **Major changes** (new features, significant refactors, or changes to `entrypoint.py` behavior) must add or update tests in `tests/`.
+- Bug fixes should include a regression test when practical.
 
 ## Action inputs / outputs
 

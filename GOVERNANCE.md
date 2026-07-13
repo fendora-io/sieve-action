@@ -30,8 +30,20 @@ The [@fendora-io/legends](https://github.com/orgs/fendora-io/teams/legends) team
 ## Decision-making
 
 - Day-to-day changes go through pull requests with at least one approving review from the Legends team.
+- **PR authors must not approve their own pull requests.** Reviews must come from a different member of the Legends team.
 - Breaking changes to `action.yml` inputs/outputs require discussion in an issue before implementation.
 - Security fixes may be expedited but still require review before merge to `main`.
+
+## Escalated permissions (GV-04.01)
+
+Before granting repository **admin**, **maintain**, or **secrets** access to a collaborator:
+
+1. The person must have a track record of merged contributions or a documented business need.
+2. An existing maintainer reviews and approves the access change.
+3. Access is granted at the lowest level required (prefer team membership over direct admin).
+4. Access is recorded in the table above.
+
+Revoke escalated access when no longer needed.
 
 ## Contact
 

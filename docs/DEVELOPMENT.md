@@ -64,7 +64,21 @@ Unit tests use the Python standard library (`unittest`):
 python3 -m unittest discover -s tests -v
 ```
 
-CI runs tests on every pull request and push to `main` (see `.github/workflows/ci.yml`).
+### When tests run
+
+| Trigger | Workflow | Job |
+|---------|----------|-----|
+| Every pull request | `.github/workflows/ci.yml` | `Run tests` |
+| Every push to `main` | `.github/workflows/ci.yml` | `Run tests` |
+
+`Run tests` is a **required status check** on `main` (branch protection).
+
+### Local prerequisites
+
+```bash
+pip install requests
+python3 -m unittest discover -s tests -v
+```
 
 ## Documentation
 
