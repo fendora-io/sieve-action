@@ -1,6 +1,6 @@
 # Security Assessment
 
-This document summarizes the most likely and impactful security risks for **Sieve by Fendora** (the `fendora-io/sieve-action` GitHub Action), assessed at release **v1.4.3**.
+This document summarizes the most likely and impactful security risks for **Sieve by Fendora** (the `fendora-io/sieve-action` GitHub Action), assessed at release **v1.4.4**.
 
 ## Scope
 
