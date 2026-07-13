@@ -22,6 +22,12 @@ Include:
 
 We aim to respond within 48 hours and will keep you informed throughout the fix process.
 
+## Published security advisories
+
+When we confirm a security vulnerability, we publish a [GitHub Security Advisory](https://github.com/fendora-io/sieve-action/security/advisories) with affected versions, severity, and remediation steps.
+
+No security advisories have been published to date.
+
 ## Scope
 
 This policy covers the `fendora-io/sieve-action` repository. For vulnerabilities in the Sieve API service itself, report to the same address.

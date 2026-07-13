@@ -105,6 +105,15 @@ When you use this action, the following is sent to Sieve servers for analysis:
 
 For questions about data handling: **contact@fendora.io**
 
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design, actors, and data flows |
+| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Dependencies, build instructions, and tests |
+| [docs/SECURITY-ASSESSMENT.md](docs/SECURITY-ASSESSMENT.md) | Threat summary and mitigations |
+| [GOVERNANCE.md](GOVERNANCE.md) | Maintainers, roles, and responsibilities |
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Report security issues via [SECURITY.md](SECURITY.md).
