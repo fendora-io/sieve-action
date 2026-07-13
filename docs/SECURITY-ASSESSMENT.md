@@ -44,3 +44,26 @@ This assessment is reviewed when:
 - A security advisory is published
 
 Last reviewed: **2026-07-13**
+
+## Attack surface analysis (SA-03.02)
+
+### Critical code paths
+
+| Path | Input | Risk | Controls |
+|------|-------|------|----------|
+| `run_semgrep()` | Untrusted repo checkout | Arbitrary code in Semgrep ruleset scope | Container isolation; non-root user; read-only `contents` in consumer workflows |
+| `call_sieve()` | Semgrep JSON + repo alias | Data leak to third party | TLS; documented data minimization in README |
+| `post_pr_comment()` | GitHub token + API | Token abuse | Consumer-scoped `GITHUB_TOKEN`; action only creates/updates comments |
+| `handle_issue_comment()` | `/sieve` slash commands | Injection via comment body | Strict prefix parsing; no shell execution of comment text |
+| Release pipeline | Tags, metadata, digests | Supply-chain tampering | Metadata validation; Cosign signing; branch protection on `main` |
+
+### External entry points
+
+- GitHub `pull_request` and `issue_comment` webhook events
+- Sieve API (`sieve.fendora.io`) — outbound only
+- GitHub REST API — outbound only
+- Container image pull from GHCR — inbound to consumer runners
+
+### Trust assumptions
+
+Attackers are assumed to control PR branch content in consumer repositories. They are **not** assumed to control `fendora-io/sieve-action` releases, maintainer accounts, or org secrets.

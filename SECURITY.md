@@ -2,12 +2,28 @@
 
 ## Supported Versions
 
-| Version | Supported |
-|---------|-----------|
-| v1.4.3  | ✅        |
-| v1.4.2  | ✅        |
-| v1.4.1  | ✅        |
-| latest  | ✅        |
+We support the **latest semver release** and the **two prior minor/patch releases** with security fixes.
+
+| Version | Supported | Security fixes until |
+|---------|-----------|----------------------|
+| v1.4.3  | ✅        | Until v1.5.0 or 6 months after next major, whichever is sooner |
+| v1.4.2  | ✅        | Same as above |
+| v1.4.1  | ✅        | Same as above |
+| < v1.4.1 | ❌        | Upgrade to a supported version |
+
+### End of support
+
+When a release line is no longer supported, it will be listed here and removed from the table above. Users on unsupported versions should upgrade to the latest release.
+
+**Current status:** All listed versions are actively supported. No end-of-support announcements to date.
+
+## Release verification
+
+See [docs/RELEASE-VERIFICATION.md](docs/RELEASE-VERIFICATION.md) for instructions to verify release integrity, authenticity, and publisher identity (Cosign / Sigstore).
+
+## Security scanning
+
+See [docs/SECURITY-SCANNING-POLICY.md](docs/SECURITY-SCANNING-POLICY.md) for SCA/SAST thresholds and [docs/VEX.md](docs/VEX.md) for non-exploitable vulnerability suppressions.
 
 ## Reporting a Vulnerability
 

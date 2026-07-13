@@ -2,3 +2,6 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 *.egg-info/
+
+scorecard.json
+BadgeApp.pdf

@@ -111,8 +111,11 @@ For questions about data handling: **contact@fendora.io**
 |----------|-------------|
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design, actors, and data flows |
 | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Dependencies, build instructions, and tests |
-| [docs/SECURITY-ASSESSMENT.md](docs/SECURITY-ASSESSMENT.md) | Threat summary and mitigations |
+| [docs/SECURITY-ASSESSMENT.md](docs/SECURITY-ASSESSMENT.md) | Threat summary and attack surface analysis |
 | [GOVERNANCE.md](GOVERNANCE.md) | Maintainers, roles, and responsibilities |
+| [docs/RELEASE-VERIFICATION.md](docs/RELEASE-VERIFICATION.md) | Verify signed releases and publisher identity |
+| [docs/SECURITY-SCANNING-POLICY.md](docs/SECURITY-SCANNING-POLICY.md) | SCA/SAST thresholds and secrets policy |
+| [docs/VEX.md](docs/VEX.md) | Non-exploitable vulnerability suppressions |
 
 ## Contributing
 
