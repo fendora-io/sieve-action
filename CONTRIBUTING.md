@@ -6,7 +6,7 @@ Thanks for your interest in improving Sieve.
 
 1. Fork the repo and create a branch from `main`
 2. Sign every commit (`git commit -s`) per the [Developer Certificate of Origin](#developer-certificate-of-origin-dco) below
-3. Open a pull request — all changes require at least one approving review before merge
+3. Open a pull request — all changes require at least one approving review from [@fendora-io/legends](https://github.com/orgs/fendora-io/teams/legends) before merge
 4. Ensure CI passes (`Validate action.yml`, `Run tests`, `DCO`, `Analyze`, `Semgrep scan`)
 
 We use GitHub pull requests and issues for all contributions.
