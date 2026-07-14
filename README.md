@@ -8,7 +8,7 @@
 
 > Built by [Fendora UG (haftungsbeschränkt)](https://fendora.io)
 
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/fendora-io/sieve-action/badge)](https://securityscorecards.dev/viewer/?uri=github.com/fendora-io/sieve-action)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/fendora-io/sieve-action/badge)](https://scorecard.dev/viewer/?uri=github.com/fendora-io/sieve-action)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13597/badge)](https://www.bestpractices.dev/en/projects/13597)
 [![OpenSSF Baseline](https://www.bestpractices.dev/projects/13597/baseline)](https://www.bestpractices.dev/projects/13597)
 
