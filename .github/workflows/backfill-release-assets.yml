@@ -68,7 +68,8 @@ jobs:
           fi
           echo "${DIGEST}" > image-digest.txt
           cosign sign-blob --yes image-digest.txt --bundle image-digest.sigstore.json
-          gh release upload "${RELEASE_TAG}" image-digest.sigstore.json --clobber --repo "fendora-io/sieve-action"
+          cp image-digest.sigstore.json provenance.intoto.jsonl
+          gh release upload "${RELEASE_TAG}" image-digest.sigstore.json provenance.intoto.jsonl --clobber --repo "fendora-io/sieve-action"
 
       - name: Generate SBOM
         if: inputs.include_sbom

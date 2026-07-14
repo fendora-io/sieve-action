@@ -15,6 +15,7 @@ jobs:
     name: Scorecard analysis
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       security-events: write
       id-token: write
 
@@ -23,7 +24,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: ossf/scorecard-action@62b2cac7ed8198b15735ed49ab1e5cf35480ba46 # v2.4.0
+      - uses: ossf/scorecard-action@99c09fe975337306107572b4fdf4db224cf8e2f2 # v2.4.3
         with:
           results_file: results.sarif
           results_format: sarif
