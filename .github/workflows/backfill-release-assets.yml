@@ -1,0 +1,85 @@
+name: Backfill release assets
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Semver release tag (e.g. v1.4.2)"
+        required: true
+        type: string
+      include_sbom:
+        description: "Generate and upload sbom.spdx.json"
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - uses: sigstore/cosign-installer@dc72c7d5c4d10cd6bcb8cf6e3fd625a9e5e537da # v3.7.0
+
+      - name: Log in to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve image digest
+        id: image
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          if [[ ! "${RELEASE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid release tag: ${RELEASE_TAG}" >&2
+            exit 1
+          fi
+          IMAGE="ghcr.io/fendora-io/sieve-action:${RELEASE_TAG}"
+          DIGEST=$(docker buildx imagetools inspect "${IMAGE}" --format '{{json .Manifest.Digest}}' | jq -r .)
+          if [[ ! "${DIGEST}" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+            echo "Could not resolve digest for ${IMAGE}" >&2
+            exit 1
+          fi
+          echo "digest=${DIGEST}" >> "${GITHUB_OUTPUT}"
+          echo "image=${IMAGE}" >> "${GITHUB_OUTPUT}"
+
+      - name: Sign container image
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+          IMAGE: ${{ steps.image.outputs.image }}
+        run: cosign sign --yes "${IMAGE}@${DIGEST}"
+
+      - name: Sign and upload release attestation
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DIGEST: ${{ steps.image.outputs.digest }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          if ! gh release view "${RELEASE_TAG}" --repo "fendora-io/sieve-action" >/dev/null 2>&1; then
+            gh release create "${RELEASE_TAG}" --repo "fendora-io/sieve-action" --title "${RELEASE_TAG}" --generate-notes
+          fi
+          echo "${DIGEST}" > image-digest.txt
+          cosign sign-blob --yes image-digest.txt --bundle image-digest.sigstore.json
+          gh release upload "${RELEASE_TAG}" image-digest.sigstore.json --clobber --repo "fendora-io/sieve-action"
+
+      - name: Generate SBOM
+        if: inputs.include_sbom
+        uses: anchore/sbom-action@e11c554f704a0b820cbf8c51673f6945e0731532 # v0.20.0
+        with:
+          image: ghcr.io/fendora-io/sieve-action@${{ steps.image.outputs.digest }}
+          output-file: sbom.spdx.json
+
+      - name: Upload SBOM to release
+        if: inputs.include_sbom
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: gh release upload "${RELEASE_TAG}" sbom.spdx.json --clobber --repo "fendora-io/sieve-action"
