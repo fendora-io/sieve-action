@@ -1,4 +1,4 @@
-name: Sieve Security Scan
+name: Sieve by Fendora
 description: AI-powered security scanner that finds real security issues and suppresses false positives.
 author: Fendora UG (haftungsbeschränkt)
 
@@ -30,6 +30,6 @@ outputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/fendora-io/sieve-action:latest
+  image: docker://ghcr.io/fendora-io/sieve-action:v1.4.4
   args:
     - ${{ inputs.github-token }}

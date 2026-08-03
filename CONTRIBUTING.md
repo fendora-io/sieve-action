@@ -2,18 +2,54 @@
 
 Thanks for your interest in improving Sieve.
 
+## How to contribute
+
+1. Fork the repo and create a branch from `main`
+2. Sign every commit (`git commit -s`) per the [Developer Certificate of Origin](#developer-certificate-of-origin-dco) below
+3. Open a pull request — all changes require at least one approving review from [@fendora-io/legends](https://github.com/orgs/fendora-io/teams/legends) before merge
+4. Ensure CI passes (`Validate action.yml`, `Run tests`, `pip-audit`, `DCO`, `Analyze`, `Semgrep scan`)
+
+We use GitHub pull requests and issues for all contributions.
+
+## Developer Certificate of Origin (DCO)
+
+By contributing, you certify that you have the right to submit your contribution under the project's [Apache 2.0 license](LICENSE), per the [Developer Certificate of Origin](https://developercertificate.org/).
+
+Every commit must include a `Signed-off-by` line:
+
+```bash
+git commit -s -m "Describe your change"
+```
+
+The DCO check runs on all pull requests.
+
+## Development
+
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for dependency management, build instructions, and running tests locally.
+
 ## Reporting issues
 
-Open a GitHub issue with:
+Open a [GitHub issue](https://github.com/fendora-io/sieve-action/issues/new/choose) with:
 - What you expected to happen
 - What actually happened
 - Your workflow file (redact any secrets)
 
+## Security vulnerabilities
+
+Please **do not** report security vulnerabilities in public issues. See [SECURITY.md](SECURITY.md) for our private disclosure process.
+
 ## Pull requests
 
-1. Fork the repo and create a branch from `main`
-2. Test your change against a real repository
-3. Open a pull request — describe what changed and why
+1. Test your change against a real repository when possible
+2. Describe what changed and why in the PR description
+3. Keep changes focused — avoid unrelated refactors
+4. **Do not approve your own PR** — a different Legends member must approve
+
+## Testing policy
+
+- All PRs must pass CI, including unit tests, DCO, Semgrep, CodeQL, and `pip-audit`.
+- **Major changes** (new features, significant refactors, or changes to `entrypoint.py` behavior) must add or update tests in `tests/`.
+- Bug fixes should include a regression test when practical.
 
 ## Action inputs / outputs
 
