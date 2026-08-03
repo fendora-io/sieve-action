@@ -239,9 +239,9 @@ charset-normalizer==3.4.9 \
     --hash=sha256:fa36ec09ef71d158186bc79e359ff5fdd6e7996fe8ab638f00d6b93139ba4fcf \
     --hash=sha256:fe2c7201c642b7c308f1675355ad7ff7b66acfe3541625efe5a3ad38f29d6115
     # via requests
-click==8.1.8 \
-    --hash=sha256:63c132bbbed01578a06712a2d1f497bb62d9c1c0d329b7903a866228027263b2 \
-    --hash=sha256:ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a
+click==8.4.2 \
+    --hash=sha256:9a6cea6e60b17ebe0a44c5cc636d94f09bd66142c1cd7d8b4cd731c4917a15f6 \
+    --hash=sha256:e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76
     # via
     #   click-option-group
     #   semgrep
@@ -613,7 +613,7 @@ requests==2.34.2 \
     --hash=sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0 \
     --hash=sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed
     # via
-    #   -r /tmp/req.in
+    #   -r requirements.in
     #   opentelemetry-exporter-otlp-proto-http
     #   semgrep
 rich==15.0.0 \
@@ -811,16 +811,16 @@ semantic-version==2.10.0 \
     --hash=sha256:bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c \
     --hash=sha256:de78a3b8e0feda74cabc54aab2da702113e33ac9d9eb9d2389bcf1f58b7d9177
     # via semgrep
-semgrep==1.169.0 \
-    --hash=sha256:41c366ab1ecd04b5e55c8e2b67e0dfa50a744d79eb09be962353a8b98242b878 \
-    --hash=sha256:46932f875b8dff4cb731cd4c908443a0f2f585edbb0a5baa92c4fc033246fdea \
-    --hash=sha256:48d899e7e31803fcbf69e69a9876a7a1ade2eddb4ef85828b6576eaa0b4940da \
-    --hash=sha256:54336981cab97b95a5f06694b2f10a36f0af86738bdc9a2050fa1865d2e44d06 \
-    --hash=sha256:ad0c8cb56f3e9ce5ac81795fc3395fd05d9a65726a2492d4ec64190ec5816911 \
-    --hash=sha256:b8c776de8de61aeb59a5cd479276225a2325bf1195e4a4af1f9530e76bb5f827 \
-    --hash=sha256:c5ffdf474a40302281af43cc2f2eefb31de5f46a6dbffcc2f4099638ed3cbfa2 \
-    --hash=sha256:ffc783021040bba9784289bcedf8719d7f5c52c73eee3b8bd1814e21422837ac
-    # via -r /tmp/req.in
+semgrep==1.171.0 \
+    --hash=sha256:0e1da44aa535fe5773ba20ec546c8f3c727af052a2244d2e957aa1d360023ada \
+    --hash=sha256:3f12149e20e512289e517ae4e07e8db6bc3d251c9bdb59c3a59c0c385322893b \
+    --hash=sha256:69884518e14c4dae62ad1f7d78c14dd4dbd5c44c920962c772f59fba3f69046d \
+    --hash=sha256:81ecc781bb964a22f92d7053e74b9afe534d7bdafcd3a0e44195872e560e355c \
+    --hash=sha256:861090849a903e28d033ee9586155e9f9cb0a4645303df002379f56634c8e1bc \
+    --hash=sha256:8683ecbceef6476402a23e1b7b39c6a98c55f11e0389974d160de48a0491e37c \
+    --hash=sha256:a3b08d3581ae4d3fc815fc34452e6d9cac91ca94885a4fce27ec96f92edc0dae \
+    --hash=sha256:c5aa8db65daabfd9644dcb09b4651ab914f5beaa547ec2cb15c02a056a7bc0be
+    # via -r requirements.in
 sse-starlette==3.4.5 \
     --hash=sha256:83072538bc211a2f68b7b0422226c4af3e9b62e106e07034664b832ca019842a \
     --hash=sha256:e71bad53323f65573c3864a6c3bd0c1eb6e5f092b2e48082b0c35927d19ca296
