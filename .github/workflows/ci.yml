@@ -43,4 +43,5 @@ jobs:
             --ignore-vuln PYSEC-2026-2132 \
             --ignore-vuln PYSEC-2026-3481 \
             --ignore-vuln PYSEC-2026-3482 \
-            --ignore-vuln PYSEC-2026-3483
+            --ignore-vuln PYSEC-2026-3483 \
+            --ignore-vuln PYSEC-2026-3552

@@ -10,6 +10,7 @@ Known dependency vulnerabilities assessed as **not exploitable** in `fendora-io/
 | PYSEC-2026-3481 | mcp 1.23.3 (transitive via semgrep) | Not affected | Requires `server.experimental.enable_tasks()` on a multi-client MCP server; sieve-action never runs an MCP server, only invokes `semgrep` as a one-shot CLI scan (entrypoint.py); fix blocked until semgrep allows mcp>=1.27.2 | 2026-08-02 |
 | PYSEC-2026-3482 | mcp 1.23.3 (transitive via semgrep) | Not affected | Requires an HTTP (SSE/Streamable) MCP server transport with bearer-token auth; sieve-action never runs an MCP server; fix blocked until semgrep allows mcp>=1.27.2 | 2026-08-02 |
 | PYSEC-2026-3483 | mcp 1.23.3 (transitive via semgrep) | Not affected | Requires exposing the deprecated `mcp.server.websocket.websocket_server` transport; sieve-action never runs an MCP server; fix blocked until semgrep allows mcp>=1.28.1 | 2026-08-02 |
+| PYSEC-2026-3552 | cryptography 49.0.0 (transitive via semgrep) | Not affected | Bleichenbacher oracle in `pkcs7_decrypt_der/pem/smime` requires a service that auto-decrypts untrusted S/MIME `EnvelopedData`; sieve-action never calls the PKCS#7 decrypt APIs, only invokes `semgrep` as a one-shot CLI scan (entrypoint.py); fix blocked until semgrep allows cryptography>=50.0.0 | 2026-09-14 |
 
 ## Process
 
