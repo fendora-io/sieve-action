@@ -6,10 +6,10 @@ We support the **latest semver release** and the **two prior minor/patch release
 
 | Version | Supported | Security fixes until |
 |---------|-----------|----------------------|
-| v1.4.4  | ✅        | Until v1.5.0 or 6 months after next major, whichever is sooner |
-| v1.4.3  | ✅        | Same as above |
-| v1.4.2  | ✅        | Same as above |
-| < v1.4.2 | ❌        | Upgrade to a supported version |
+| v1.4.6  | ✅        | Until v1.5.0 or 6 months after next major, whichever is sooner |
+| v1.4.5  | ✅        | Same as above |
+| v1.4.4  | ✅        | Same as above |
+| < v1.4.4 | ❌        | Upgrade to a supported version |
 
 ### End of support
 
