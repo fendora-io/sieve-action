@@ -1,2 +1,5 @@
-semgrep==1.177.0
+semgrep==1.179.0
 requests==2.34.2
+pyjwt>=2.15.0
+urllib3>=2.8.0
+cryptography>=50.0.0

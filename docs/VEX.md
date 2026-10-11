@@ -4,13 +4,19 @@ Known dependency vulnerabilities assessed as **not exploitable** in `fendora-io/
 
 ## Suppressions
 
-| CVE / GHSA | Component | Status | Justification | Last reviewed |
-|------------|-----------|--------|---------------|---------------|
-| PYSEC-2026-2132 | click 8.1.8 (transitive via semgrep) | Not affected | `click.edit()` is not invoked by sieve-action or entrypoint.py; vulnerability requires attacker to control arguments to that API | 2026-07-13 |
-| PYSEC-2026-3481 | mcp 1.23.3 (transitive via semgrep) | Not affected | Requires `server.experimental.enable_tasks()` on a multi-client MCP server; sieve-action never runs an MCP server, only invokes `semgrep` as a one-shot CLI scan (entrypoint.py); fix blocked until semgrep allows mcp>=1.27.2 | 2026-08-02 |
-| PYSEC-2026-3482 | mcp 1.23.3 (transitive via semgrep) | Not affected | Requires an HTTP (SSE/Streamable) MCP server transport with bearer-token auth; sieve-action never runs an MCP server; fix blocked until semgrep allows mcp>=1.27.2 | 2026-08-02 |
-| PYSEC-2026-3483 | mcp 1.23.3 (transitive via semgrep) | Not affected | Requires exposing the deprecated `mcp.server.websocket.websocket_server` transport; sieve-action never runs an MCP server; fix blocked until semgrep allows mcp>=1.28.1 | 2026-08-02 |
-| PYSEC-2026-3552 | cryptography 49.0.0 (transitive via semgrep) | Not affected | Bleichenbacher oracle in `pkcs7_decrypt_der/pem/smime` requires a service that auto-decrypts untrusted S/MIME `EnvelopedData`; sieve-action never calls the PKCS#7 decrypt APIs, only invokes `semgrep` as a one-shot CLI scan (entrypoint.py); fix blocked until semgrep allows cryptography>=50.0.0 | 2026-09-14 |
+None active. `pip-audit` runs in CI without any `--ignore-vuln` flags.
+
+## Resolved
+
+Previously suppressed findings, now fixed by upgrading the dependency. Kept for audit history.
+
+| CVE / GHSA | Component | Resolution | Resolved |
+|------------|-----------|------------|----------|
+| PYSEC-2026-2132 | click (transitive via semgrep) | Upgraded to click 8.4.2 | 2026-10-11 |
+| PYSEC-2026-3481 | mcp (transitive via semgrep) | Upgraded to mcp 1.29.0 | 2026-10-11 |
+| PYSEC-2026-3482 | mcp (transitive via semgrep) | Upgraded to mcp 1.29.0 | 2026-10-11 |
+| PYSEC-2026-3483 | mcp (transitive via semgrep) | Upgraded to mcp 1.29.0 | 2026-10-11 |
+| PYSEC-2026-3552 | cryptography (transitive via semgrep) | Upgraded to cryptography 50.0.2 | 2026-10-11 |
 
 ## Process
 
