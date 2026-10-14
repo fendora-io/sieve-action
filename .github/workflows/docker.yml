@@ -167,7 +167,7 @@ jobs:
           gh release upload "${RELEASE_TAG}" provenance.intoto.jsonl --clobber --repo "fendora-io/sieve-action"
 
       - name: Generate SBOM
-        uses: anchore/sbom-action@e11c554f704a0b820cbf8c51673f6945e0731532 # v0.20.0
+        uses: anchore/sbom-action@66cbf4bc1f1c0d2edc94016e65bc221b6bb0ad6c # v0.24.3
         with:
           image: ghcr.io/fendora-io/sieve-action@${{ needs.build.outputs.digest }}
           output-file: sbom.spdx.json
