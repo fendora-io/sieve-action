@@ -1,4 +1,4 @@
-semgrep==1.180.0
+semgrep==1.182.1
 requests==2.34.2
 pyjwt>=2.15.0
 urllib3>=2.8.0
